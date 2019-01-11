@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+entity HALF_ADDER is
+port
+(
+in_a : in std_logic;
+in_b : in std_logic;
+carryout : out std_logic;
+sum : out std_logic
+);
+end HALF_ADDER;
+
+
+architecture HALF_ADDER_ARCHITECTURE of HALF_ADDER is
+
+component TWO_INPUT_XOR_GATE
+port
+(
+ a : in std_logic;
+ b : in std_logic;
+ c : out std_logic
+);
+end component;
+
+component TWO_INPUT_AND_GATE
+port
+(
+a : in std_logic;
+b : in std_logic;
+c : out std_logic
+);
+end component;
+
+begin
+
+SUMMATION_U1: TWO_INPUT_XOR_GATE port map (in_a, in_b, sum);
+CARRY_U2: TWO_INPUT_AND_GATE port map (in_a, in_b, carryout);
+end HALF_ADDER_ARCHITECTURE;

@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+entity D_FLIP_FLOP is
+
+Port ( D,clk : in  STD_LOGIC;
+
+Q,QBAR : out STD_LOGIC);
+
+end D_FLIP_FLOP;
+
+architecture D_FLIP_FLOP_ARCHITECTURE of D_FLIP_FLOP is
+
+component TWO_INPUT_NAND_GATE
+
+port(a,b: in STD_LOGIC;
+
+c:out STD_LOGIC);
+
+end component;
+
+signal NAND1,NAND2, NAND3 ,SIGNALQ,SIGNALQBAR:STD_LOGIC;
+
+begin
+
+FLIPFLOP_U0: TWO_INPUT_NAND_GATE port map(D,clk,NAND1);
+
+FLIPFLOP_U1: TWO_INPUT_NAND_GATE port map(D,D,NAND2);
+
+FLIPFLOP_U2: TWO_INPUT_NAND_GATE port map(NAND2,clk,NAND3);
+
+FLIPFLOP_U3: TWO_INPUT_NAND_GATE port map(NAND1,SIGNALQBAR,Q);
+
+FLIPFLOP_U4: TWO_INPUT_NAND_GATE port map(NAND3,SIGNALQ,QBAR);
+Q<=SIGNALQ;
+QBAR<=SIGNALQBAR;
+end D_FLIP_FLOP_ARCHITECTURE;
+
+
